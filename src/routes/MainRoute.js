@@ -1,11 +1,11 @@
-import React, {lazy} from 'react';
+import React from 'react';
 import {
     Route, Redirect, Switch,
 } from 'react-router-dom';
 
 import {
     ROUTES,
-} from './../utils/constants';
+} from 'utils/constants';
 import styles from './MainRoute.module.scss';
 
 import HomePage from './Home';
