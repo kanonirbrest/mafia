@@ -1,8 +1,12 @@
 import React from 'react';
+import MenuPage from "../../components/Menu";
 
 const HomePage = () => {
     return (
-        <div>home page</div>
+        <div>
+            home page
+            <MenuPage/>
+        </div>
     );
 };
 
