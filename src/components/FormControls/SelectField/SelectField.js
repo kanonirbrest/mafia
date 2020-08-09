@@ -1,5 +1,5 @@
 import React from 'react';
-import {FastField} from 'formik';
+import { Field } from 'formik';
 import cn from 'classnames';
 import { Select } from 'antd';
 
@@ -13,11 +13,13 @@ const renderField = (
     optionList,
     cssClasses = {},
     field,
-    form
-  }) => {
-
+    form,
+    label,
+  },
+) => {
   const options = optionList.map((option) => (
     <Option
+      key={option[keys.valueKey]}
       value={option[keys.valueKey]}
     >
       {option[keys.labelKey]}
@@ -28,23 +30,31 @@ const renderField = (
     form.setFieldValue(field.name, value);
   };
 
-  return (<Select
-      name={field.name}
-      onChange={onChange}
-      defaultValue={optionList[0].value}
-      className={cn(styles.select, cssClasses.select)}
-      style={{ width: '100%' }}
-    >
-      {options}
-    </Select>)
+  console.log(optionList, 'optionList');
+
+  return (
+    <>
+      {label && <div>{label}</div>}
+      <Select
+        name={field.name}
+        onChange={onChange}
+        defaultValue={optionList.length > 0 ? optionList[0].value : null}
+        className={cn(styles.select, cssClasses.select)}
+        style={{ width: '100%' }}
+      >
+        {options}
+      </Select>
+    </>
+  );
 };
 
 const SelectField = (
   {
     component,
     ...props
-  }) => (
-  <FastField
+  },
+) => (
+  <Field
     component={component || renderField}
     {...props}
   />

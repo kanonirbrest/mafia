@@ -1,10 +1,11 @@
 import React from 'react';
 
-import styles from "./AddClub.module.scss";
-import {FastField, Form, Formik} from "formik";
-import InputField from "components/FormControls/InputField";
-import {Button} from "antd";
-import clubsApi from "api/ClubsApi";
+import { FastField, Form, Formik } from 'formik';
+import InputField from 'components/FormControls/InputField';
+import { Button } from 'antd';
+import { clubsApi } from 'api/ClubsApi';
+import styles from './AddClub.module.scss';
+import { createNotification } from '../../../utils/notificationUtils';
 
 export const ADD_CLUB_FORM_FIELDS = {
   city: 'city',
@@ -17,13 +18,18 @@ const initialValues = {
   location: '',
   name: '',
 };
-const AddClubPage = ({title, defaultValues}) => {
+const AddClubPage = ({ title, defaultValues, getClubs }) => {
   const handleSubmit = async (values) => {
-    console.log('submit');
     const response = await clubsApi.create(values);
+    createNotification(
+      `club ${values.name} created`,
+      'This is the content of the notification.',
+    );
     console.log(response, 'response');
+    getClubs();
   };
   const validateGameForm = () => {};
+
   return (
     <div className={styles.addClubWrapper}>
       <h3>{title}</h3>
@@ -38,31 +44,35 @@ const AddClubPage = ({title, defaultValues}) => {
               <FastField
                 component={InputField}
                 id={ADD_CLUB_FORM_FIELDS.name}
-                placeholder={'Club name'}
+                placeholder="Club name"
                 name={ADD_CLUB_FORM_FIELDS.name}
+                label={ADD_CLUB_FORM_FIELDS.name}
                 type="text"
                 required
               />
               <FastField
                 component={InputField}
                 id={ADD_CLUB_FORM_FIELDS.location}
-                placeholder={'Locatoion (adress)'}
+                placeholder="Locatoion (adress)"
                 name={ADD_CLUB_FORM_FIELDS.location}
+                label={ADD_CLUB_FORM_FIELDS.location}
                 type="text"
                 required
               />
               <FastField
                 component={InputField}
                 id={ADD_CLUB_FORM_FIELDS.city}
-                placeholder={'City'}
+                placeholder="City"
                 name={ADD_CLUB_FORM_FIELDS.city}
+                label={ADD_CLUB_FORM_FIELDS.city}
                 type="text"
                 required
               />
               <div className={styles.buttonsWrapper}>
                 <Button type="primary" htmlType="submit">Submit</Button>
               </div>
-            </Form>)}
+            </Form>
+          )}
         </Formik>
       </div>
     </div>

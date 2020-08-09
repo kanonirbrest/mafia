@@ -53,8 +53,8 @@ export const COLUMNS = [
       key: 'city',
     },
     {
-      title: 'club',
-      dataIndex: 'club',
-      key: 'club',
+      title: 'id',
+      dataIndex: 'id',
+      key: 'id',
     },
 ];

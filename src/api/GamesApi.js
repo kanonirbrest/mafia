@@ -7,8 +7,8 @@ export const gamesApi = {
   //   return Promise.from({games: []});
   // },
   create(data) {
-    // return axios.post(`${BASE_URL}/Games`, data);
-    return Promise.resolve({status: '200'});
+    return axios.post(`${BASE_URL}/Games`, data);
+    // return Promise.resolve({status: '200'});
   },
 };
 

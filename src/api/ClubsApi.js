@@ -1,14 +1,12 @@
-import * as axios from 'axios';
 import { BASE_URL } from '../utils/constants/ApiConstants';
+import http from './httpService';
 
 export const clubsApi = {
   getAll() {
-    // return axios.get(`${BASE_URL}/Clubs`);
-    return Promise.resolve({clubs: []});
+    return http.get(`${BASE_URL}/Clubs`);
   },
   create(data) {
-    // return axios.post(`${BASE_URL}/Clubs`, data);
-    return Promise.resolve({status: '200'});
+    return http.post(`${BASE_URL}/Clubs`, data);
   },
 };
 

@@ -1,35 +1,54 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+// import { useHistory } from 'react-router-dom';
 
-import styles from "./Login.module.scss";
-import {FastField, Form, Formik} from "formik";
-import InputField from "components/FormControls/InputField";
-import {Button} from "antd";
+import { getUserByToken } from 'utils/auth';
+import { FastField, Form, Formik } from 'formik';
+import InputField from 'components/FormControls/InputField';
+import { Button } from 'antd';
 
-import { authContext } from "contexts/AuthContext";
-import {ROUTES} from "utils/constants";
-import authApi from "api/authApi";
+// import { authContext } from 'contexts/AuthContext';
+// import { ROUTES } from 'utils/constants';
+import { authApi } from 'api/authApi';
+import styles from './Login.module.scss';
 
 export const LOGIN_FORM_FIELDS = {
   userName: 'userName',
-  password: 'password'
+  password: 'password',
 };
 
-const initialValues = {};
+const initialValues = {
+  userName: 'admin',
+  password: 'mfadmin1234',
+};
 
-const LoginPage = () => {
-  let history = useHistory();
-
+// eslint-disable-next-line no-unused-vars
+const LoginPage = ({ auth, dispatch }) => {
+  // const history = useHistory();
+  // const auth = React.useContext(authContext);
   const handleSubmit = async (values) => {
     const response = await authApi.login(values);
 
-    if(response.token === 'admin') {
-      auth.setAuthStatus({ id: '1', userName: values.userName, role: 'clubOwner' });
-      history.push(ROUTES.root);
-    }
+    const user = getUserByToken(response.data);
+
+    console.log({
+      token: response.data,
+      user,
+    });
+    dispatch({
+      type: 'LOGIN',
+      payload: {
+        token: response.data,
+        user,
+      },
+    });
+    // window.localStorage.setItem('mafiaToken', response.data);
+    // if (user.role === 'ADMIN') {
+    //   // window.localStorage.setItem('mafiaToken', response.data);
+    //   // auth.setAuthStatus({ id: '1', userName: values.userName, role: 'clubOwner' });
+    //   // history.push(ROUTES.root);
+    // }
   };
   const validateForm = () => {};
-  const auth = React.useContext(authContext);
 
   return (
     <div className={styles.login}>
@@ -44,23 +63,26 @@ const LoginPage = () => {
             <FastField
               component={InputField}
               id={LOGIN_FORM_FIELDS.userName}
-              placeholder={'UserName'}
+              placeholder="UserName"
               name={LOGIN_FORM_FIELDS.userName}
               type="text"
+              cssClasses={{ wrapper: styles.inputWrapper }}
               required
             />
             <FastField
               component={InputField}
               id={LOGIN_FORM_FIELDS.password}
-              placeholder={'Password'}
+              placeholder="Password"
               name={LOGIN_FORM_FIELDS.password}
               type="password"
+              cssClasses={{ wrapper: styles.inputWrapper }}
               required
             />
             <div className={styles.buttonsWrapper}>
               <Button type="primary" htmlType="submit">Submit</Button>
             </div>
-          </Form>)}
+          </Form>
+        )}
       </Formik>
     </div>
   );

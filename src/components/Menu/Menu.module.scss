@@ -14,16 +14,22 @@
         position: relative;
 
         display: flex;
+        overflow: hidden;
         align-items: flex-end;
 
+        width: 16rem;
         height: 350px;
+        height: 16rem;
 
         cursor: pointer;
 
         background-image: url(https://cs4.pikabu.ru/post_img/big/2016/08/16/1/147129875426523427.jpg);
+        background-image: url(https://novosib-room.ru/uploads/novosib/2014/08/mafiya-kartinki-smeshnye-kartinki-fotoprikoly_404033222.jpg);
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
+
+        BORDER-RADIUS: 50%;
 
         &:hover
         {
@@ -42,6 +48,8 @@
 
             width: 100%;
             padding-left: 2rem;
+
+            text-align: center;
 
             opacity: .8;
             background: white;
@@ -94,3 +102,6 @@
 {
     content: none;
 }
+/* ==================== */
+
+

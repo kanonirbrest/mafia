@@ -1,28 +1,76 @@
-import React from 'react';
-import {Provider} from 'react-redux';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import {
+  BrowserRouter as Router, Switch,
+} from 'react-router-dom';
 
-import {ROUTES} from './utils/constants';
 import MainRoute from './routes';
-import store from './redux';
-import AuthContextProvider from "./contexts/AuthContext";
 
 import './App.scss';
 import 'antd/dist/antd.css';
+import LoginPage from './routes/Login';
+import { getUserByToken } from './utils/auth';
 
-function App() {
-    return (
-      <AuthContextProvider>
-        {/*<Provider store={store}>*/}
-          <Router>
-            <Switch>
-              <Route path={ROUTES.root} component={MainRoute}/>
-            </Switch>
-            <div id="modal-root"/>
-          </Router>
-        {/*</Provider>*/}
-      </AuthContextProvider>
-    );
-}
+export const AuthContext = React.createContext(); // added this
+const initialState = {
+  isAuthenticated: false,
+  user: null,
+  token: null,
+};
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'LOGIN':
+      localStorage.setItem('mafiaUser', JSON.stringify(action.payload.user));
+      localStorage.setItem('mafiaToken', action.payload.token);
+
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: action.payload.user,
+        token: action.payload.token,
+      };
+    case 'LOGOUT':
+      localStorage.clear();
+
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: null,
+      };
+    default:
+      return state;
+  }
+};
+
+const App = () => {
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+
+  useEffect(() => {
+    const token = window.localStorage.getItem('mafiaToken');
+    const user = getUserByToken(token);
+
+    dispatch({
+      type: 'LOGIN',
+      payload: {
+        token,
+        user,
+      },
+    });
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{
+      state,
+      dispatch,
+    }}
+    >
+      <Router>
+        <Switch>
+          {!state.isAuthenticated ? <LoginPage auth={state} dispatch={dispatch} />
+            : <MainRoute auth={state} dispatch={dispatch} />}
+        </Switch>
+      </Router>
+    </AuthContext.Provider>
+  );
+};
 
 export default App;

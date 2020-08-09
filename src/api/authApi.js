@@ -1,10 +1,10 @@
 import * as axios from 'axios';
-import { BASE_URL } from '../utils/constants/ApiConstants';
 
 export const authApi = {
+  // eslint-disable-next-line no-unused-vars
   login(userName, password) {
-    // return axios.post(`${BASE_URL}/Authorization`, { userName, password });
-    return Promise.resolve({token: 'admin'})
+    return axios
+      .post('https://localhost:8081/api/Authorization?userName=tOwner1&password=tOwner1');
   },
 };
 

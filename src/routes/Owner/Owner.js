@@ -1,38 +1,59 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import ClubInfo from "./ClubInfo";
+import { clubsApi } from 'api/ClubsApi';
+import ClubInfo from './ClubInfo';
+import AddPlayer from './AddPlayer';
+import { usersApi } from '../../api/UsersApi';
+import { createNotification } from '../../utils/notificationUtils';
 
-import styles from "./Owner.module.scss";
-import clubsApi from "api/ClubsApi";
-import AddPlayer from "./AddPlayer";
+import styles from './Owner.module.scss';
 
 const mockClub = {
   city: 'Brest',
   name: 'Nichego Lichnogo',
-  location: 'Moskovskaya 12'
+  location: 'Moskovskaya 12',
 };
 
-const OwnerPage = ({auth}) => {
-  console.log(auth, 'OwnerPage');
+const OwnerPage = ({ auth }) => {
+  const [clubs, setClubs] = useState([]);
+
+  const getClubs = async () => {
+    const response = await clubsApi
+      .getAll();
+    setClubs(response.data.clubs || []);
+    console.log(auth, 'OwnerPage', clubs);
+  };
+
   useEffect(() => {
-    const response = clubsApi.getAll();
+    getClubs();
   }, []);
 
   const onAddPlayers = (values) => {
-    const players = values.players.map((item) => {
-      return {
-        name: item,
-        club: mockClub.name
-      }
-    });
-    console.log(players, 'players')
+    const players = values.players.map((item) => usersApi.create({
+      nickname: item,
+      fullName: item,
+      club: mockClub.name,
+      city: mockClub.city,
+    }));
+    console.log(values, 'players');
+    Promise.all(players)
+      .then(() => {
+        values.players.forEach((player) => {
+          createNotification(
+            `player ${player} created`,
+            'This is the content of the notification.',
+          );
+        });
+      }, (err) => {
+        console.log('err', { err });
+      });
   };
 
   return (
-    <div className={styles.addClubWrapper}>
+    <div className={styles.ownerWrapper}>
       <h3>Owner Panel</h3>
-      <ClubInfo club={mockClub}/>
-      <AddPlayer club={mockClub} onAddPlayers={onAddPlayers}/>
+      <ClubInfo club={mockClub} />
+      <AddPlayer club={mockClub} onAddPlayers={onAddPlayers} />
     </div>
   );
 };
