@@ -21,7 +21,6 @@ const OwnerPage = ({ auth }) => {
     const response = await clubsApi
       .getAll();
     setClubs(response.data.clubs || []);
-    console.log(auth, 'OwnerPage', clubs);
   };
 
   useEffect(() => {
@@ -35,7 +34,6 @@ const OwnerPage = ({ auth }) => {
       club: mockClub.name,
       city: mockClub.city,
     }));
-    console.log(values, 'players');
     Promise.all(players)
       .then(() => {
         values.players.forEach((player) => {

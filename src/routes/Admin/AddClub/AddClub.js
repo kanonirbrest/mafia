@@ -2,10 +2,10 @@ import React from 'react';
 
 import { FastField, Form, Formik } from 'formik';
 import InputField from 'components/FormControls/InputField';
-import { Button } from 'antd';
+import { Button, Descriptions } from 'antd';
 import { clubsApi } from 'api/ClubsApi';
+import { createNotification } from 'utils/notificationUtils';
 import styles from './AddClub.module.scss';
-import { createNotification } from '../../../utils/notificationUtils';
 
 export const ADD_CLUB_FORM_FIELDS = {
   city: 'city',
@@ -18,7 +18,9 @@ const initialValues = {
   location: '',
   name: '',
 };
-const AddClubPage = ({ title, defaultValues, getClubs }) => {
+const AddClubPage = ({
+  title, defaultValues, getClubs, isReadMode = false,
+}) => {
   const handleSubmit = async (values) => {
     const response = await clubsApi.create(values);
     createNotification(
@@ -31,51 +33,57 @@ const AddClubPage = ({ title, defaultValues, getClubs }) => {
   const validateGameForm = () => {};
 
   return (
-    <div className={styles.addClubWrapper}>
-      <h3>{title}</h3>
-      <div className={styles.formWrapper}>
-        <Formik
-          initialValues={defaultValues || initialValues}
-          onSubmit={handleSubmit}
-          validate={validateGameForm}
-        >
-          {() => (
-            <Form>
+
+    <Formik
+      initialValues={defaultValues || initialValues}
+      onSubmit={handleSubmit}
+      validate={validateGameForm}
+    >
+      {() => (
+        <Form>
+          <Descriptions title={title} bordered>
+            <Descriptions.Item label="Club name" span={3}>
               <FastField
                 component={InputField}
                 id={ADD_CLUB_FORM_FIELDS.name}
                 placeholder="Club name"
                 name={ADD_CLUB_FORM_FIELDS.name}
-                label={ADD_CLUB_FORM_FIELDS.name}
+                // label={ADD_CLUB_FORM_FIELDS.name}
                 type="text"
                 required
               />
+            </Descriptions.Item>
+            <Descriptions.Item label="Locatoion (adress)" span={3}>
               <FastField
                 component={InputField}
                 id={ADD_CLUB_FORM_FIELDS.location}
                 placeholder="Locatoion (adress)"
                 name={ADD_CLUB_FORM_FIELDS.location}
-                label={ADD_CLUB_FORM_FIELDS.location}
+                // label={ADD_CLUB_FORM_FIELDS.location}
                 type="text"
                 required
               />
+            </Descriptions.Item>
+            <Descriptions.Item label="City" span={3}>
               <FastField
                 component={InputField}
                 id={ADD_CLUB_FORM_FIELDS.city}
                 placeholder="City"
                 name={ADD_CLUB_FORM_FIELDS.city}
-                label={ADD_CLUB_FORM_FIELDS.city}
+                // label={ADD_CLUB_FORM_FIELDS.city}
                 type="text"
                 required
               />
-              <div className={styles.buttonsWrapper}>
-                <Button type="primary" htmlType="submit">Submit</Button>
-              </div>
-            </Form>
+            </Descriptions.Item>
+          </Descriptions>
+          {!isReadMode && (
+          <div className={styles.buttonsWrapper}>
+            <Button type="primary" htmlType="submit">Submit</Button>
+          </div>
           )}
-        </Formik>
-      </div>
-    </div>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

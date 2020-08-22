@@ -20,6 +20,7 @@ import OwnerPage from './Owner';
 import StatisticPage from './Statistic';
 import ProfilePage from './Profile';
 import CalendarPage from './Calendar';
+import PlayerInfo from './Players/PlayersTable/PlayerInfo';
 // import { AuthContext } from '../App';
 
 const MainRoute = ({ auth, dispatch }) => {
@@ -41,6 +42,9 @@ const MainRoute = ({ auth, dispatch }) => {
           </Route>
           <Route path={ROUTES.players} exact>
             <PlayersPage />
+          </Route>
+          <Route path={ROUTES.playerInfo} exact>
+            <PlayerInfo />
           </Route>
           <Route path={ROUTES.clubs} exact>
             <ClubsPage />

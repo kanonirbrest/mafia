@@ -3,6 +3,7 @@ export const ROUTES = {
   game: '/game',
   createGame: '/create-game',
   players: '/players',
+  playerInfo: '/players/:id',
   clubs: '/clubs',
   login: '/login',
   admin: '/admin',
