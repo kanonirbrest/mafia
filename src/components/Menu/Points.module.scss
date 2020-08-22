@@ -144,8 +144,8 @@ a {
 .menuOpenButton {
   background: #EEEEEE;
   border-radius: 100%;
-  width: 80px;
-  height: 80px;
+  width: 140px;
+  height: 140px;
   margin-left: -40px;
   position: absolute;
   color: #FFFFFF;
@@ -157,6 +157,14 @@ a {
   transition: -webkit-transform ease-out 200ms;
   transition: transform ease-out 200ms;
   transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    height: 80px;
+    width: 80px;
+  }
 }
 
 .menuOpen {
@@ -231,6 +239,7 @@ a {
 .menuItem:hover {
   background: #EEEEEE;
   color: #3290B1;
+  border: 5px solid red;
 }
 
 .menuItem:nth-child(3) {
@@ -350,6 +359,7 @@ a {
 
 .blue {
   background-color: #669AE1;
+  background-color: black;
   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
 }
@@ -361,6 +371,7 @@ a {
 
 .green {
   background-color: #70CC72;
+  background-color: black;
   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
 }
@@ -372,6 +383,7 @@ a {
 
 .red {
   background-color: #FE4365;
+  background-color: black;
   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
 }
@@ -383,6 +395,7 @@ a {
 
 .purple {
   background-color: #C49CDE;
+  background-color: black;
   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
 }
@@ -394,6 +407,7 @@ a {
 
 .orange {
   background-color: #FC913A;
+  background-color: black;
   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
 }
@@ -405,6 +419,7 @@ a {
 
 .lightblue {
   background-color: #62C2E4;
+  background-color: black;
   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
 }
@@ -429,4 +444,7 @@ a {
 
 .credit a:hover {
   text-decoration: underline;
+}
+
+.gunIcon {
 }

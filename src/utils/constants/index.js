@@ -8,11 +8,13 @@ export const ROUTES = {
   admin: '/admin',
   owner: '/owner',
   statistics: '/statistics',
+  profile: '/profile',
 };
 
 export const WINNER = {
   BlackWin: 1,
   RedWin: 2,
+  Cancelled: 3,
 };
 
 export const GAME_ROLES = {

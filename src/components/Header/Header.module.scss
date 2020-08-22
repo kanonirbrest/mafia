@@ -17,3 +17,15 @@
     font-size: 1.8rem;
     font-width: bold;
 }
+
+.userPanel {
+    display: flex;
+    align-items: center;
+    .info {
+        margin-right: 10px;
+    }
+}
+
+.backButton {
+    margin-right: 20px;
+}

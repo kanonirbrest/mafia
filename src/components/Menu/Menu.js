@@ -1,8 +1,12 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 
 import { ROUTES } from 'utils/constants';
+import GunIcon from 'assets/svg/gun.svg';
+
+// import styles from './Points.module.scss';
 import styles from './Menu.module.scss';
 
 const menuItemsData = [
@@ -59,7 +63,24 @@ const menuItemsData = [
   },
 ];
 const MenuPage = ({ auth: { auth } }) => {
-  console.log(auth);
+  let [angle, setAngle] = useState(-90);
+  const [checkBoxValue, setCheckboxValue] = useState(false);
+
+  const resizeHandler = (e) => {
+    const box = document.getElementById('body');
+
+    const boxCenter = [box.offsetLeft + box.offsetWidth / 2, box.offsetTop + box.offsetHeight / 2];
+    angle = Math.atan2(e.pageX - boxCenter[0], -(e.pageY - boxCenter[1])) * (180 / Math.PI) - 90;
+    setAngle(angle);
+  };
+  useEffect(() => {
+    window.addEventListener('mousemove', resizeHandler);
+
+    return () => {
+      window.removeEventListener('mousemove', resizeHandler);
+    };
+  }, []);
+
   const menuItems = menuItemsData.map((item) => {
     if (item.name === 'auth' && auth && auth.user) {
       return null;
@@ -89,27 +110,52 @@ const MenuPage = ({ auth: { auth } }) => {
     return null;
   });
 
+  const handleChange = (e) => {
+    setCheckboxValue(e.target.checked);
+  };
+
   return (
     <div className={styles.menuWrapper}>
-      {menuItems}
+      {
+        true
+          ? menuItems : (
+            <nav className={styles.menu}>
+              <input
+                type="checkbox"
+                href="#"
+                className={styles.menuOpen}
+                name="menu-open"
+                id="menu-open"
+                value={checkBoxValue}
+                onChange={handleChange}
+              />
+              <label className={styles.menuOpenButton} htmlFor="menu-open">
+                <img src={GunIcon} alt="React Logo" className={styles.gunIcon} style={{ transform: `rotate(${checkBoxValue ? angle : -90}deg)` }} />
+              </label>
+
+              <a href="#" className={cn(styles.menuItem, styles.blue)}>
+                <i className="fa fa-anchor" />
+              </a>
+              <a href="#" className={cn(styles.menuItem, styles.green)}>
+                <i className="fa fa-coffee" />
+              </a>
+              <a href="#" className={cn(styles.menuItem, styles.red)}>
+                <i className="fa fa-heart" />
+              </a>
+              <a href="#" className={cn(styles.menuItem, styles.purple)}>
+                <i className="fa fa-microphone" />
+              </a>
+              <a href="#" className={cn(styles.menuItem, styles.orange)}>
+                <i className="fa fa-star" />
+              </a>
+              <a href="#" className={cn(styles.menuItem, styles.orange)}>
+                <i className="fa fa-diamond" />
+              </a>
+            </nav>
+          )
+      }
+
     </div>
-    // <nav className={styles.menu}>
-    //   <input type="checkbox" href="#" className={styles.menuOpen} name="menu-open" id="menu-open"/>
-    //   <label className={styles.menuOpenButton} htmlFor="menu-open">
-    //     <span className={cn(styles.lines, styles.line1)}></span>
-    //     <span className={cn(styles.lines, styles.line2)}></span>
-    //     <span className={cn(styles.lines, styles.line3)}></span>
-    //   </label>
-    //
-    //   <a href="#" className={cn(styles.menuItem, styles.blue)}>
-    //     <i className="fa fa-anchor"></i>
-    //   </a>
-    //   <a href="#" className={cn(styles.menuItem, styles.green)}> <i className="fa fa-coffee"></i> </a>
-    //   <a href="#" className={cn(styles.menuItem, styles.red)}> <i className="fa fa-heart"></i> </a>
-    //   <a href="#" className={cn(styles.menuItem, styles.purple)}> <i className="fa fa-microphone"></i> </a>
-    //   <a href="#" className={cn(styles.menuItem, styles.orange)}> <i className="fa fa-star"></i> </a>
-    //   <a href="#" className={cn(styles.menuItem, styles.lightBlue)}> <i className="fa fa-diamond"></i> </a>
-    // </nav>
   );
 };
 

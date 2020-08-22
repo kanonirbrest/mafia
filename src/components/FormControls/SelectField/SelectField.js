@@ -30,8 +30,6 @@ const renderField = (
     form.setFieldValue(field.name, value);
   };
 
-  console.log(optionList, 'optionList');
-
   return (
     <>
       {label && <div>{label}</div>}

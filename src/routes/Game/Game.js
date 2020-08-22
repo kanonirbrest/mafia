@@ -3,7 +3,7 @@ import {
   FastField, FieldArray,
   Formik, Form,
 } from 'formik';
-import { Button } from 'antd';
+import { Button, Descriptions, Badge } from 'antd';
 
 import InputField from 'components/FormControls/InputField';
 import SelectField from 'components/FormControls/SelectField';
@@ -21,12 +21,6 @@ const resultOptions = Object.keys(WINNER).map((role) => ({
   label: role,
   value: WINNER[role],
 }));
-
-// const PLAYERS = [
-//   { value: 'player1' }, { value: 'player2' }, { value: 'player3' },
-//   { value: 'player4' }, { value: 'player5' }, { value: 'player6' },
-//   { value: 'player7' }, { value: 'player8' }, { value: 'player9' },
-// ];
 
 export const ADD_GAME_FORM_FIELDS = {
   firstKilledId: 'firstKilledId',
@@ -77,14 +71,42 @@ const GamePage = () => {
           {({ values }) => (
             <Form>
               <div className={styles.fieldsWrapper}>
+                <Descriptions title="Game: " bordered>
+                  <Descriptions.Item label="First killed">
+                    <FastField
+                      component={Autocomplete}
+                      id={ADD_GAME_FORM_FIELDS.firstKilledId}
+                      placeholder="first Killed Player"
+                      // label="first Killed Player"
+                      name={ADD_GAME_FORM_FIELDS.firstKilledId}
+                      cssClasses={{ container: styles.field }}
+                      optionList={players}
+                      keys={{
+                        valueKey: 'value',
+                        labelKey: 'label',
+                      }}
+                      required
+                    />
+                  </Descriptions.Item>
+                  {/* <Descriptions.Item label="Billing Mode">Prepaid</Descriptions.Item> */}
+                  {/* <Descriptions.Item label="Automatic Renewal">YES</Descriptions.Item> */}
+                  {/* <Descriptions.Item label="Order time">2018-04-24 18:00:00</Descriptions.Item> */}
+                  {/* <Descriptions.Item label="Usage Time" span={2}> */}
+                  {/*  2019-04-24 18:00:00 */}
+                  {/* </Descriptions.Item> */}
+                </Descriptions>
                 <FastField
-                  component={InputField}
+                  component={Autocomplete}
                   id={ADD_GAME_FORM_FIELDS.firstKilledId}
-                  placeholder="firstKilledId"
+                  placeholder="first Killed Player"
+                  label="first Killed Player"
                   name={ADD_GAME_FORM_FIELDS.firstKilledId}
-                  label={ADD_GAME_FORM_FIELDS.firstKilledId}
                   cssClasses={{ container: styles.field }}
-                  type="text"
+                  optionList={players}
+                  keys={{
+                    valueKey: 'value',
+                    labelKey: 'label',
+                  }}
                   required
                 />
                 <FastField
@@ -103,12 +125,13 @@ const GamePage = () => {
                   component={SelectField}
                   id={ADD_GAME_FORM_FIELDS.gameResult}
                   name={
-                ADD_GAME_FORM_FIELDS.gameResult
-              }
+                    ADD_GAME_FORM_FIELDS.gameResult
+                  }
                   keys={{
                     valueKey: 'value',
                     labelKey: 'label',
                   }}
+                  label="Game result"
                   optionList={resultOptions}
                   required
                 />

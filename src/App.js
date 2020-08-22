@@ -48,13 +48,15 @@ const App = () => {
     const token = window.localStorage.getItem('mafiaToken');
     const user = getUserByToken(token);
 
-    dispatch({
-      type: 'LOGIN',
-      payload: {
-        token,
-        user,
-      },
-    });
+    if (token) {
+      dispatch({
+        type: 'LOGIN',
+        payload: {
+          token,
+          user,
+        },
+      });
+    }
   }, []);
 
   return (
