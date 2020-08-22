@@ -8,6 +8,7 @@ export const ROUTES = {
   admin: '/admin',
   owner: '/owner',
   statistics: '/statistics',
+  calendar: '/calendar',
   profile: '/profile',
 };
 

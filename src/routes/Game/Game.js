@@ -72,7 +72,7 @@ const GamePage = () => {
             <Form>
               <div className={styles.fieldsWrapper}>
                 <Descriptions title="Game: " bordered>
-                  <Descriptions.Item label="First killed">
+                  <Descriptions.Item label="First killed" span={3}>
                     <FastField
                       component={Autocomplete}
                       id={ADD_GAME_FORM_FIELDS.firstKilledId}
@@ -88,96 +88,81 @@ const GamePage = () => {
                       required
                     />
                   </Descriptions.Item>
-                  {/* <Descriptions.Item label="Billing Mode">Prepaid</Descriptions.Item> */}
-                  {/* <Descriptions.Item label="Automatic Renewal">YES</Descriptions.Item> */}
-                  {/* <Descriptions.Item label="Order time">2018-04-24 18:00:00</Descriptions.Item> */}
-                  {/* <Descriptions.Item label="Usage Time" span={2}> */}
-                  {/*  2019-04-24 18:00:00 */}
-                  {/* </Descriptions.Item> */}
+                  <Descriptions.Item label="Best Move" span={3}>
+                    <FastField
+                      component={InputField}
+                      id={ADD_GAME_FORM_FIELDS.bestMove}
+                      placeholder="best Move"
+                      name={ADD_GAME_FORM_FIELDS.bestMove}
+                      // label={ADD_GAME_FORM_FIELDS.bestMove}
+                      cssClasses={
+                        { container: styles.field }
+                      }
+                      type="text"
+                      required
+                    />
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Game result" span={3}>
+                    <FastField
+                      component={SelectField}
+                      id={ADD_GAME_FORM_FIELDS.gameResult}
+                      name={
+                         ADD_GAME_FORM_FIELDS.gameResult
+                       }
+                      keys={{
+                        valueKey: 'value',
+                        labelKey: 'label',
+                      }}
+                      placeholder="Game result"
+                      optionList={resultOptions}
+                      required
+                    />
+                  </Descriptions.Item>
                 </Descriptions>
-                <FastField
-                  component={Autocomplete}
-                  id={ADD_GAME_FORM_FIELDS.firstKilledId}
-                  placeholder="first Killed Player"
-                  label="first Killed Player"
-                  name={ADD_GAME_FORM_FIELDS.firstKilledId}
-                  cssClasses={{ container: styles.field }}
-                  optionList={players}
-                  keys={{
-                    valueKey: 'value',
-                    labelKey: 'label',
-                  }}
-                  required
-                />
-                <FastField
-                  component={InputField}
-                  id={ADD_GAME_FORM_FIELDS.bestMove}
-                  placeholder="bestMove"
-                  name={ADD_GAME_FORM_FIELDS.bestMove}
-                  label={ADD_GAME_FORM_FIELDS.bestMove}
-                  cssClasses={
-                { container: styles.field }
-              }
-                  type="text"
-                  required
-                />
-                <FastField
-                  component={SelectField}
-                  id={ADD_GAME_FORM_FIELDS.gameResult}
-                  name={
-                    ADD_GAME_FORM_FIELDS.gameResult
-                  }
-                  keys={{
-                    valueKey: 'value',
-                    labelKey: 'label',
-                  }}
-                  label="Game result"
-                  optionList={resultOptions}
-                  required
-                />
               </div>
               <FieldArray
                 name="playerRoles"
                 render={(arrayHelpers) => (
                   <div className={styles.playersWrapper}>
-                    {values.playerRoles && values.playerRoles.length > 0 ? (
-                      values.playerRoles.map((friend, index) => (
+                    <Descriptions title="" bordered>
+                      {values.playerRoles && values.playerRoles.length > 0 ? (
+                        values.playerRoles.map((friend, index) => (
                         // eslint-disable-next-line react/no-array-index-key
-                        <div key={index} className={styles.playerContainer}>
-                          <FastField
-                            component={Autocomplete}
-                            id={`${ADD_GAME_FORM_FIELDS.playerRoles}.${index}.playerId`}
-                            label={`#: ${index + 1}`}
-                            name={`${ADD_GAME_FORM_FIELDS.playerRoles}.${index}.playerId`}
-                            placeholder={`player ${index + 1}`}
-                            keys={{
-                              valueKey: 'value',
-                              labelKey: 'label',
-                            }}
-                            optionList={players}
-                            required
-                          />
-                          <FastField
-                            component={SelectField}
-                            id={`${ADD_GAME_FORM_FIELDS.playerRoles}.${index}.gameRole`}
-                            name={`${ADD_GAME_FORM_FIELDS.playerRoles}.${index}.gameRole`}
-                            placeholder={`player ${index + 1}`}
-                            keys={{
-                              valueKey: 'value',
-                              labelKey: 'label',
-                            }}
-                            optionList={roleOptions}
-                            type="text"
-                            required
-                          />
-                        </div>
-                      ))
-                    ) : (
-                      <button type="button" onClick={() => arrayHelpers.push('')}>
-                        Add a player
-                      </button>
-                    )}
-
+                          <Descriptions.Item span={1} label={`player ${index + 1}`} key={index} className={styles.playerContainer}>
+                            <FastField
+                              component={Autocomplete}
+                              id={`${ADD_GAME_FORM_FIELDS.playerRoles}.${index}.playerId`}
+                              label={`#: ${index + 1}`}
+                              name={`${ADD_GAME_FORM_FIELDS.playerRoles}.${index}.playerId`}
+                              placeholder={`player ${index + 1}`}
+                              keys={{
+                                valueKey: 'value',
+                                labelKey: 'label',
+                              }}
+                              optionList={players}
+                              required
+                            />
+                            <FastField
+                              component={SelectField}
+                              id={`${ADD_GAME_FORM_FIELDS.playerRoles}.${index}.gameRole`}
+                              name={`${ADD_GAME_FORM_FIELDS.playerRoles}.${index}.gameRole`}
+                              placeholder={`player ${index + 1}`}
+                              keys={{
+                                valueKey: 'value',
+                                labelKey: 'label',
+                              }}
+                              optionList={roleOptions}
+                              type="text"
+                              required
+                            />
+                          </Descriptions.Item>
+                        ))
+                      ) : (
+                        <button type="button" onClick={() => arrayHelpers.push('')}>
+                          Add a player
+                        </button>
+                      )}
+                    </Descriptions>
                   </div>
                 )}
               />

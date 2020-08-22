@@ -19,6 +19,7 @@ import AdminPage from './Admin';
 import OwnerPage from './Owner';
 import StatisticPage from './Statistic';
 import ProfilePage from './Profile';
+import CalendarPage from './Calendar';
 // import { AuthContext } from '../App';
 
 const MainRoute = ({ auth, dispatch }) => {
@@ -58,6 +59,9 @@ const MainRoute = ({ auth, dispatch }) => {
           </Route>
           <Route path={ROUTES.profile} exact>
             <ProfilePage auth={auth} />
+          </Route>
+          <Route path={ROUTES.calendar} exact>
+            <CalendarPage />
           </Route>
           <Redirect to={ROUTES.root} from="*" />
         </Switch>
