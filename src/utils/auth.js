@@ -10,8 +10,6 @@ export const getStoredUserAuth = () => {
     return JSON.parse(auth);
   }
 
-  console.log('default');
-
   return DEFAULT_USER_AUTH;
 };
 

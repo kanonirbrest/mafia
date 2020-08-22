@@ -11,6 +11,7 @@ export const ADD_CLUB_FORM_FIELDS = {
   city: 'city',
   location: 'location',
   name: 'name',
+  avatar: 'avatar',
 };
 
 const initialValues = {
@@ -22,12 +23,15 @@ const AddClubPage = ({
   title, defaultValues, getClubs, isReadMode = false,
 }) => {
   const handleSubmit = async (values) => {
+    // eslint-disable-next-line no-param-reassign
+    delete values.file; // Todo: remove
     const response = await clubsApi.create(values);
+    // TODO check response status
     createNotification(
       `club ${values.name} created`,
       'This is the content of the notification.',
     );
-    console.log(response, 'response');
+
     getClubs();
   };
   const validateGameForm = () => {};
@@ -42,6 +46,16 @@ const AddClubPage = ({
       {() => (
         <Form>
           <Descriptions title={title} bordered>
+            <Descriptions.Item label="Avatar" span={3}>
+              <FastField
+                component={InputField}
+                id={ADD_CLUB_FORM_FIELDS.avatar}
+                placeholder="Club name"
+                name={ADD_CLUB_FORM_FIELDS.avatar}
+                // label={ADD_CLUB_FORM_FIELDS.name}
+                type="file"
+              />
+            </Descriptions.Item>
             <Descriptions.Item label="Club name" span={3}>
               <FastField
                 component={InputField}

@@ -4,8 +4,6 @@ import styles from './ClubInfo.module.scss';
 import AddClubPage from '../../Admin/AddClub';
 
 const ClubInfo = ({ club }) => {
-  console.log(club);
-
   // add true here for isReadMode
   return (
     <div className={styles.clubInfoWrapper}>

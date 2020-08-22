@@ -69,7 +69,7 @@ const CalendarPage = () => {
 
   return (
     <div className={styles.wrapper}>
-      <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
+      <Calendar fullscreen={false} dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
     </div>
   );
 };

@@ -24,8 +24,8 @@ const AdminPage = () => {
   return (
     <div className={styles.addClubWrapper}>
       <h3>Admin Panel</h3>
-      <AddClubPage getClubs={getClubs} title="add club" />
-      {clubs.length > 0 && <AddClubOwnerPage clubs={clubs} title="add club owner" />}
+      <AddClubPage getClubs={getClubs} title="Add club" />
+      {clubs.length > 0 && <AddClubOwnerPage clubs={clubs} title="Add club owner" />}
     </div>
   );
 };

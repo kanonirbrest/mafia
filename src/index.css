@@ -18,3 +18,10 @@ code
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* calendar */
+.events {
+    max-height: 60px;
+    overflow: scroll;
+    /*border: 1px solid red;*/
+}

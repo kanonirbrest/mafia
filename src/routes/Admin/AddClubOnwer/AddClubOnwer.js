@@ -4,7 +4,7 @@ import {
   FastField, Form, Formik, Field,
 } from 'formik';
 import InputField from 'components/FormControls/InputField';
-import { Button } from 'antd';
+import { Button, Descriptions } from 'antd';
 import { usersApi } from 'api/UsersApi';
 import SelectField from 'components/FormControls/SelectField';
 import { createNotification } from 'utils/notificationUtils';
@@ -50,9 +50,6 @@ const AddClubOwnerPage = ({ title, defaultValues, clubs = [] }) => {
 
   return (
     <div className={styles.addClubWrapper}>
-      <h3>{title}</h3>
-      {' '}
-      ADD OWNER
       <div className={styles.formWrapper}>
         <Formik
           initialValues={defaultValues || initialValues}
@@ -61,64 +58,78 @@ const AddClubOwnerPage = ({ title, defaultValues, clubs = [] }) => {
         >
           {() => (
             <Form>
-              <FastField
-                component={InputField}
-                id={ADD_CLUB_ONWER_FORM_FIELDS.nickname}
-                placeholder="nickname"
-                name={ADD_CLUB_ONWER_FORM_FIELDS.nickname}
-                label={ADD_CLUB_ONWER_FORM_FIELDS.nickname}
-                type="text"
-                required
-              />
-              <FastField
-                component={InputField}
-                id={ADD_CLUB_ONWER_FORM_FIELDS.password}
-                placeholder="password"
-                name={ADD_CLUB_ONWER_FORM_FIELDS.password}
-                label={ADD_CLUB_ONWER_FORM_FIELDS.password}
-                type="text"
-                required
-              />
-              <FastField
-                component={InputField}
-                id={ADD_CLUB_ONWER_FORM_FIELDS.email}
-                placeholder="email"
-                name={ADD_CLUB_ONWER_FORM_FIELDS.email}
-                label={ADD_CLUB_ONWER_FORM_FIELDS.email}
-                type="text"
-                required
-              />
-              <FastField
-                component={InputField}
-                id={ADD_CLUB_ONWER_FORM_FIELDS.fullName}
-                placeholder="fullName"
-                name={ADD_CLUB_ONWER_FORM_FIELDS.fullName}
-                label={ADD_CLUB_ONWER_FORM_FIELDS.fullName}
-                type="text"
-                required
-              />
-              <FastField
-                component={InputField}
-                id={ADD_CLUB_ONWER_FORM_FIELDS.city}
-                placeholder="city"
-                name={ADD_CLUB_ONWER_FORM_FIELDS.city}
-                label={ADD_CLUB_ONWER_FORM_FIELDS.city}
-                type="text"
-                required
-              />
-              <Field
-                component={SelectField}
-                id={ADD_CLUB_ONWER_FORM_FIELDS.clubId}
-                name={ADD_CLUB_ONWER_FORM_FIELDS.clubId}
-                placeholder="club"
-                keys={{
-                  valueKey: 'value',
-                  labelKey: 'label',
-                }}
-                optionList={clubIdOptions}
-                label="club name"
-                required
-              />
+              <Descriptions title={title} bordered>
+                <Descriptions.Item label="Nickname" span={3}>
+                  <FastField
+                    component={InputField}
+                    id={ADD_CLUB_ONWER_FORM_FIELDS.nickname}
+                    placeholder="nickname"
+                    name={ADD_CLUB_ONWER_FORM_FIELDS.nickname}
+                    // label={ADD_CLUB_ONWER_FORM_FIELDS.nickname}
+                    type="text"
+                    required
+                  />
+                </Descriptions.Item>
+                <Descriptions.Item label="Password" span={3}>
+                  <FastField
+                    component={InputField}
+                    id={ADD_CLUB_ONWER_FORM_FIELDS.password}
+                    placeholder="password"
+                    name={ADD_CLUB_ONWER_FORM_FIELDS.password}
+                    // label={ADD_CLUB_ONWER_FORM_FIELDS.password}
+                    type="text"
+                    required
+                  />
+                </Descriptions.Item>
+                <Descriptions.Item label="Email" span={3}>
+                  <FastField
+                    component={InputField}
+                    id={ADD_CLUB_ONWER_FORM_FIELDS.email}
+                    placeholder="email"
+                    name={ADD_CLUB_ONWER_FORM_FIELDS.email}
+                    // label={ADD_CLUB_ONWER_FORM_FIELDS.email}
+                    type="text"
+                    required
+                  />
+                </Descriptions.Item>
+                <Descriptions.Item label="Full Name" span={3}>
+                  <FastField
+                    component={InputField}
+                    id={ADD_CLUB_ONWER_FORM_FIELDS.fullName}
+                    placeholder="fullName"
+                    name={ADD_CLUB_ONWER_FORM_FIELDS.fullName}
+                    // label={ADD_CLUB_ONWER_FORM_FIELDS.fullName}
+                    type="text"
+                    required
+                  />
+                </Descriptions.Item>
+                <Descriptions.Item label="City" span={3}>
+                  <FastField
+                    component={InputField}
+                    id={ADD_CLUB_ONWER_FORM_FIELDS.city}
+                    placeholder="city"
+                    name={ADD_CLUB_ONWER_FORM_FIELDS.city}
+                    // label={ADD_CLUB_ONWER_FORM_FIELDS.city}
+                    type="text"
+                    required
+                  />
+                </Descriptions.Item>
+                <Descriptions.Item label="Club" span={3}>
+                  <Field
+                    component={SelectField}
+                    id={ADD_CLUB_ONWER_FORM_FIELDS.clubId}
+                    name={ADD_CLUB_ONWER_FORM_FIELDS.clubId}
+                    placeholder="club"
+                    keys={{
+                      valueKey: 'value',
+                      labelKey: 'label',
+                    }}
+                    optionList={clubIdOptions}
+                    // label="club name"
+                    required
+                  />
+                </Descriptions.Item>
+              </Descriptions>
               <div className={styles.buttonsWrapper}>
                 <Button type="primary" htmlType="submit">Submit</Button>
               </div>
