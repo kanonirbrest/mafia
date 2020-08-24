@@ -13,15 +13,13 @@ import GamePage from './Game';
 import PlayersPage from './Players';
 import Header from '../components/Header';
 import ClubsPage from './Clubs';
-// import LoginPage from './Login';
-// import { authContextt } from '../contexts/AuthContext';
 import AdminPage from './Admin';
 import OwnerPage from './Owner';
 import StatisticPage from './Statistic';
 import ProfilePage from './Profile';
 import CalendarPage from './Calendar';
 import PlayerInfo from './Players/PlayersTable/PlayerInfo';
-// import { AuthContext } from '../App';
+import ClubInfo from './Clubs/ClubInfo';
 
 const MainRoute = ({ auth, dispatch }) => {
   if (!auth.isAuthenticated) {
@@ -46,12 +44,12 @@ const MainRoute = ({ auth, dispatch }) => {
           <Route path={ROUTES.playerInfo} exact>
             <PlayerInfo />
           </Route>
+          <Route path={ROUTES.clubInfo} exact>
+            <ClubInfo />
+          </Route>
           <Route path={ROUTES.clubs} exact>
             <ClubsPage />
           </Route>
-          {/* <Route path={ROUTES.login} exact> */}
-          {/*  <LoginPage /> */}
-          {/* </Route> */}
           <Route path={ROUTES.admin} exact>
             <AdminPage />
           </Route>

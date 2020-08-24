@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { clubsApi } from 'api/ClubsApi';
 import { Card, Col, Row } from 'antd';
+import { useHistory } from 'react-router-dom';
+
+import { clubsApi } from 'api/ClubsApi';
+
 import styles from './Clubs.module.scss';
 
 const { Meta } = Card;
 
 const ClubsPage = () => {
   const [clubs, setClubs] = useState([]);
+  const history = useHistory();
 
   const getClubs = async () => {
     const response = await clubsApi
@@ -16,6 +20,9 @@ const ClubsPage = () => {
   useEffect(() => {
     getClubs();
   }, []);
+  const onClubClick = (club) => {
+    history.push(`/clubs/${club.id}`);
+  };
 
   const getDescription = (item) => (
     <div>
@@ -38,12 +45,21 @@ const ClubsPage = () => {
           clubs.map((club, index) => {
             if (index % 4 === 0) {
               return (
-                <Row gutter={24} style={{ marginTop: 20 }}>
-                  <Col span={6}>
+                <Row gutter={24}>
+                  <Col
+                    style={{ marginBottom: 20 }}
+                    span={6}
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={8}
+                    xl={6}
+                  >
                     <Card
                       bordered
                       hoverable
                       style={{ width: 340, margin: '0 auto' }}
+                      onClick={() => onClubClick(club)}
                       cover={(
                         <img
                           alt="example"
@@ -58,10 +74,19 @@ const ClubsPage = () => {
                     </Card>
                   </Col>
                   {index + 1 <= clubs.length && (
-                  <Col span={6}>
+                  <Col
+                    style={{ marginBottom: 20 }}
+                    span={6}
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={8}
+                    xl={6}
+                  >
                     <Card
                       hoverable
                       style={{ width: 340, margin: '0 auto' }}
+                      onClick={() => onClubClick(club)}
                       cover={(
                         <img
                           alt="example"
@@ -77,10 +102,19 @@ const ClubsPage = () => {
                   </Col>
                   )}
                   {index + 2 < clubs.length && (
-                  <Col span={6}>
+                  <Col
+                    style={{ marginBottom: 20 }}
+                    span={6}
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={8}
+                    xl={6}
+                  >
                     <Card
                       hoverable
                       style={{ width: 340, margin: '0 auto' }}
+                      onClick={() => onClubClick(club)}
                       cover={(
                         <img
                           alt="example"
@@ -96,10 +130,19 @@ const ClubsPage = () => {
                   </Col>
                   )}
                   {index + 3 < clubs.length && (
-                    <Col span={6}>
+                    <Col
+                      style={{ marginBottom: 20 }}
+                      span={6}
+                      xs={12}
+                      sm={12}
+                      md={12}
+                      lg={8}
+                      xl={6}
+                    >
                       <Card
                         hoverable
                         style={{ width: 340, margin: '0 auto' }}
+                        onClick={() => onClubClick(club)}
                         cover={(
                           <img
                             alt="example"

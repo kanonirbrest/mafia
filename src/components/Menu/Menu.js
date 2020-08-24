@@ -51,7 +51,7 @@ const menuItemsData = [
   {
     name: '7',
     url: 'https://cs8.pikabu.ru/post_img/big/2016/08/16/0/147129782529531119.jpg',
-    title: 'Club Owner Panel',
+    title: 'ClubInfo Owner Panel',
     route: ROUTES.owner,
     roles: ['CLUBOWNER'],
   },

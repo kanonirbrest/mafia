@@ -4,6 +4,7 @@ export const ROUTES = {
   createGame: '/create-game',
   players: '/players',
   playerInfo: '/players/:id',
+  clubInfo: '/clubs/:id',
   clubs: '/clubs',
   login: '/login',
   admin: '/admin',

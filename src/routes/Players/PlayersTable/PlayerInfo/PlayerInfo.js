@@ -3,10 +3,8 @@ import { useLocation } from 'react-router-dom';
 
 import { usersApi } from 'api/UsersApi';
 import {
-  Skeleton, Switch, Card, Avatar,
+  Skeleton, Card, Avatar,
 } from 'antd';
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
-import styles from './PlayerInfo.module.scss';
 
 const { Meta } = Card;
 
