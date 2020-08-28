@@ -4,6 +4,7 @@ import { Input } from 'antd';
 import cn from 'classnames';
 
 import styles from './InputField.module.scss';
+import FormikErrorMessage from '../FormikErrorMessage';
 
 const renderField = (
   {
@@ -17,15 +18,18 @@ const renderField = (
   },
 ) => (
   <div className={cssClasses.wrapper}>
-    {label
-    && <label className={styles.label} htmlFor={id}>{label}</label>}
-    <Input
-      {...field}
-      {...props}
-      id={id}
-      placeholder={placeholder}
-      className={cn(styles.input, cssClasses.input)}
-    />
+    <div>
+      {label
+      && <label className={styles.label} htmlFor={id}>{label}</label>}
+      <Input
+        {...field}
+        {...props}
+        id={id}
+        placeholder={placeholder}
+        className={cn(styles.input, cssClasses.input)}
+      />
+    </div>
+    <FormikErrorMessage name={field.name} />
   </div>
 );
 

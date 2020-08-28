@@ -3,7 +3,7 @@ import {
   FastField, FieldArray,
   Formik, Form,
 } from 'formik';
-import { Button, Descriptions, Badge } from 'antd';
+import { Button, Descriptions } from 'antd';
 
 import InputField from 'components/FormControls/InputField';
 import SelectField from 'components/FormControls/SelectField';
@@ -11,6 +11,7 @@ import Autocomplete from 'components/FormControls/Autocomplete';
 import { GAME_ROLES, WINNER } from 'utils/constants';
 import styles from './Game.module.scss';
 import { usersApi } from '../../api/UsersApi';
+import { validateGameForm } from '../../utils/validationUtils';
 
 const roleOptions = Object.keys(GAME_ROLES).map((role) => ({
   label: role,
@@ -31,8 +32,6 @@ export const ADD_GAME_FORM_FIELDS = {
 
 const handleSubmit = (values) => {
   console.log(values, 'values');
-};
-const validateGameForm = () => {
 };
 
 const initialValues = {
@@ -68,7 +67,7 @@ const GamePage = () => {
           onSubmit={handleSubmit}
           validate={validateGameForm}
         >
-          {({ values }) => (
+          {({ values, errors }) => (
             <Form>
               <div className={styles.fieldsWrapper}>
                 <Descriptions title="Game: " bordered>
@@ -99,7 +98,6 @@ const GamePage = () => {
                         { container: styles.field }
                       }
                       type="text"
-                      required
                     />
                   </Descriptions.Item>
                   <Descriptions.Item label="Game result" span={3}>
@@ -128,12 +126,18 @@ const GamePage = () => {
                       {values.playerRoles && values.playerRoles.length > 0 ? (
                         values.playerRoles.map((friend, index) => (
                         // eslint-disable-next-line react/no-array-index-key
-                          <Descriptions.Item span={1} label={`player ${index + 1}`} key={index} className={styles.playerContainer}>
+                          <Descriptions.Item
+                            span={1}
+                            label={`player ${index + 1}`}
+                            key={index}
+                            className={styles.playerContainer}
+                          >
                             <FastField
                               component={Autocomplete}
                               id={`${ADD_GAME_FORM_FIELDS.playerRoles}.${index}.playerId`}
                               label={`#: ${index + 1}`}
-                              name={`${ADD_GAME_FORM_FIELDS.playerRoles}.${index}.playerId`}
+                              name={`${
+                                ADD_GAME_FORM_FIELDS.playerRoles}.${index}.playerId`}
                               placeholder={`player ${index + 1}`}
                               keys={{
                                 valueKey: 'value',
@@ -145,7 +149,9 @@ const GamePage = () => {
                             <FastField
                               component={SelectField}
                               id={`${ADD_GAME_FORM_FIELDS.playerRoles}.${index}.gameRole`}
-                              name={`${ADD_GAME_FORM_FIELDS.playerRoles}.${index}.gameRole`}
+                              name={
+                                `${ADD_GAME_FORM_FIELDS.playerRoles}.${index}.gameRole`
+}
                               placeholder={`player ${index + 1}`}
                               keys={{
                                 valueKey: 'value',
@@ -167,6 +173,7 @@ const GamePage = () => {
                 )}
               />
               <div className={styles.buttonsWrapper}>
+                {errors && errors.count && <div>{errors.count}</div>}
                 <Button type="primary" htmlType="submit">Submit</Button>
               </div>
             </Form>
@@ -179,15 +186,3 @@ const GamePage = () => {
 };
 
 export default GamePage;
-// {
-//   "dateTime": "2020-06-12T07:21:18.438Z",
-//   "firstKilledId": "string",
-//   "bestMove": 0,
-//   "gameResult": 0,
-//   "playerRoles": [
-//   {
-//     "playerId": "string",
-//     "gameRole": 0
-//   }
-// ]
-// }

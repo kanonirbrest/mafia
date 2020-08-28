@@ -6,8 +6,6 @@ import {
 import {
   ROUTES,
 } from 'utils/constants';
-import styles from './MainRoute.module.scss';
-
 import HomePage from './Home';
 import GamePage from './Game';
 import PlayersPage from './Players';
@@ -20,6 +18,8 @@ import ProfilePage from './Profile';
 import CalendarPage from './Calendar';
 import PlayerInfo from './Players/PlayersTable/PlayerInfo';
 import ClubInfo from './Clubs/ClubInfo';
+
+import styles from './MainRoute.module.scss';
 
 const MainRoute = ({ auth, dispatch }) => {
   if (!auth.isAuthenticated) {

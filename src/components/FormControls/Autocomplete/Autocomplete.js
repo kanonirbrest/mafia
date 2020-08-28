@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { FastField } from 'formik';
-import { AutoComplete, Select } from 'antd';
+import { AutoComplete } from 'antd';
 import cn from 'classnames';
 
 import styles from './Autocomplete.module.scss';
+import FormikErrorMessage from '../FormikErrorMessage';
 
 const renderField = (
   {
@@ -33,7 +34,7 @@ const renderField = (
   };
 
   return (
-    <>
+    <div>
       {label && <div>{label}</div>}
       <AutoComplete
         {...field}
@@ -45,7 +46,10 @@ const renderField = (
         placeholder={placeholder}
         className={cn(styles.input, cssClasses.input)}
       />
-    </>
+      <div>
+        <FormikErrorMessage name={field.name} />
+      </div>
+    </div>
   );
 };
 

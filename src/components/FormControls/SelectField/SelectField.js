@@ -4,6 +4,7 @@ import cn from 'classnames';
 import { Select } from 'antd';
 
 import styles from './SelectField.module.scss';
+import FormikErrorMessage from '../FormikErrorMessage';
 
 const { Option } = Select;
 
@@ -42,6 +43,9 @@ const renderField = (
       >
         {options}
       </Select>
+      <div>
+        <FormikErrorMessage name={field.name} />
+      </div>
     </>
   );
 };
