@@ -20,8 +20,10 @@ code
 }
 
 /* calendar */
-.events {
-    max-height: 60px;
+.events
+{
     overflow: scroll;
+
+    max-height: 60px;
     /*border: 1px solid red;*/
 }
