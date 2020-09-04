@@ -10,6 +10,8 @@ import { Button } from 'antd';
 // import { ROUTES } from 'utils/constants';
 import { authApi } from 'api/authApi';
 import styles from './Login.module.scss';
+import { login, setClub } from '../../reducer/appReducer';
+import { clubsApi } from '../../api/ClubsApi';
 
 export const LOGIN_FORM_FIELDS = {
   userName: 'userName',
@@ -21,26 +23,22 @@ const initialValues = {
   password: 'mfadmin1234',
 };
 
-// eslint-disable-next-line no-unused-vars
-const LoginPage = ({ auth, dispatch }) => {
+const LoginPage = ({ dispatch }) => {
   // const history = useHistory();
   // const auth = React.useContext(authContext);
   const handleSubmit = async (values) => {
     const response = await authApi.login(values);
 
     const user = getUserByToken(response.data);
+    if (user && user.role === 'CLUBOWNER') {
+      const club = await clubsApi.own().data;
+      dispatch(setClub(club));
+    }
 
-    console.log({
+    dispatch(login({
       token: response.data,
       user,
-    });
-    dispatch({
-      type: 'LOGIN',
-      payload: {
-        token: response.data,
-        user,
-      },
-    });
+    }));
     // window.localStorage.setItem('mafiaToken', response.data);
     // if (user.role === 'ADMIN') {
     //   // window.localStorage.setItem('mafiaToken', response.data);

@@ -8,6 +8,8 @@ export const clubsApi = {
   create(data) {
     return http.post(`${BASE_URL}/Clubs`, data);
   },
+  own(data) {
+    return http.get(`${BASE_URL}/Clubs/own`, data);
+  },
 };
-
 export default clubsApi;

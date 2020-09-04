@@ -9,52 +9,31 @@ import './App.scss';
 import 'antd/dist/antd.css';
 import LoginPage from './routes/Login';
 import { getUserByToken } from './utils/auth';
+import { clubsApi } from './api/ClubsApi';
+import { login, reducer, setClub } from './reducer/appReducer';
 
-export const AuthContext = React.createContext(); // added this
+export const AuthContext = React.createContext();
 const initialState = {
   isAuthenticated: false,
   user: null,
   token: null,
-};
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'LOGIN':
-      localStorage.setItem('mafiaUser', JSON.stringify(action.payload.user));
-      localStorage.setItem('mafiaToken', action.payload.token);
-
-      return {
-        ...state,
-        isAuthenticated: true,
-        user: action.payload.user,
-        token: action.payload.token,
-      };
-    case 'LOGOUT':
-      localStorage.clear();
-
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: null,
-      };
-    default:
-      return state;
-  }
+  club: null,
 };
 
 const App = () => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
-  useEffect(() => {
+  useEffect(async () => {
     const token = window.localStorage.getItem('mafiaToken');
     const user = getUserByToken(token);
-
+    if (user && user.role === 'CLUBOWNER') {
+      const club = await clubsApi.own().data;
+      dispatch(setClub(club));
+    }
     if (token) {
-      dispatch({
-        type: 'LOGIN',
-        payload: {
-          token,
-          user,
-        },
+      login({
+        token,
+        user,
       });
     }
   }, []);

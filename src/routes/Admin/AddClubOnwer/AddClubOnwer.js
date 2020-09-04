@@ -17,6 +17,7 @@ export const ADD_CLUB_ONWER_FORM_FIELDS = {
   fullName: 'fullName',
   city: 'city',
   clubId: 'clubId',
+  instagram: 'instagram',
 };
 
 const initialValues = {
@@ -26,6 +27,7 @@ const initialValues = {
   fullName: '',
   city: '',
   clubId: '',
+  instagram: 'instagram',
 };
 
 const AddClubOwnerPage = ({ title, defaultValues, clubs = [] }) => {
@@ -126,6 +128,15 @@ const AddClubOwnerPage = ({ title, defaultValues, clubs = [] }) => {
                     }}
                     optionList={clubIdOptions}
                     // label="club name"
+                    required
+                  />
+                </Descriptions.Item>
+                <Descriptions.Item label="Club" span={3}>
+                  <Field
+                    component={InputField}
+                    id={ADD_CLUB_ONWER_FORM_FIELDS.instagram}
+                    name={ADD_CLUB_ONWER_FORM_FIELDS.instagram}
+                    placeholder="instagram"
                     required
                   />
                 </Descriptions.Item>
