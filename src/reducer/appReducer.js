@@ -6,6 +6,13 @@ export const setClub = (state) => ({ type: SET_CLUB, state });
 export const login = (state) => ({ type: LOGIN, state });
 export const logOut = (state) => ({ type: LOGOUT, state });
 
+export const initialState = {
+  isAuthenticated: false,
+  user: null,
+  token: null,
+  club: null,
+};
+
 export const reducer = (state, action) => {
   switch (action.type) {
     case LOGIN:

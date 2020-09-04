@@ -10,15 +10,11 @@ import 'antd/dist/antd.css';
 import LoginPage from './routes/Login';
 import { getUserByToken } from './utils/auth';
 import { clubsApi } from './api/ClubsApi';
-import { login, reducer, setClub } from './reducer/appReducer';
+import {
+  initialState, login, reducer, setClub,
+} from './reducer/appReducer';
 
 export const AuthContext = React.createContext();
-const initialState = {
-  isAuthenticated: false,
-  user: null,
-  token: null,
-  club: null,
-};
 
 const App = () => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
