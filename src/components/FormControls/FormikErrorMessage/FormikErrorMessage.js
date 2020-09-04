@@ -14,13 +14,15 @@ const FormikErrorMessage = ({
   <span className={cn(styles.error, cssClasses.error)}>
     <ErrorMessage name={name}>
       {(message) => (
-        <div className={styles.messageContainer}>
-          <ErrorIcon
-            color={COLORS.white}
-            className={styles.icon}
-          />
-          <span>{message}</span>
-        </div>
+        message ? (
+          <div className={styles.messageContainer}>
+            <ErrorIcon
+              color={COLORS.white}
+              className={styles.icon}
+            />
+            <span>{message}</span>
+          </div>
+        ) : null
       )}
     </ErrorMessage>
   </span>

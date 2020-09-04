@@ -34,7 +34,7 @@ const renderField = (
   };
 
   return (
-    <div>
+    <div className={styles.autoComplete}>
       {label && <div>{label}</div>}
       <AutoComplete
         {...field}
@@ -46,9 +46,7 @@ const renderField = (
         placeholder={placeholder}
         className={cn(styles.input, cssClasses.input)}
       />
-      <div>
-        <FormikErrorMessage name={field.name} />
-      </div>
+      <FormikErrorMessage name={field.name} />
     </div>
   );
 };

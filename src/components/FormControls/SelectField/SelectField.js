@@ -43,9 +43,8 @@ const renderField = (
       >
         {options}
       </Select>
-      <div>
-        <FormikErrorMessage name={field.name} />
-      </div>
+
+      <FormikErrorMessage name={field.name} />
     </>
   );
 };
