@@ -1,6 +1,8 @@
 import React from 'react';
 import { Carousel } from 'antd';
 
+import PlayersTable from '../../Players/PlayersTable';
+
 import styles from './ClubInfo.module.scss';
 
 const contentStyle = {
@@ -30,6 +32,8 @@ const ClubInfo = () => {
           <h3 style={contentStyle}>4</h3>
         </div>
       </Carousel>
+      Players:
+      <PlayersTable players={[]} />
     </div>
   );
 };

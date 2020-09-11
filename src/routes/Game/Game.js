@@ -25,6 +25,7 @@ const resultOptions = Object.keys(WINNER).map((role) => ({
 }));
 
 export const ADD_GAME_FORM_FIELDS = {
+  rating: 'rating',
   firstKilledId: 'firstKilledId',
   bestMove: 'bestMove',
   gameResult: 'gameResult',
@@ -32,7 +33,9 @@ export const ADD_GAME_FORM_FIELDS = {
 };
 
 const handleSubmit = (values) => {
-  console.log(values, 'values');
+  const bestMove = values.bestMove.map((index) => values.playerRoles[index - 1].playerId);
+  const firstKilled = values.playerRoles[values.firstKilledId - 1].playerId;
+  console.log(firstKilled, 'values', bestMove);
 };
 
 const initialValues = {
@@ -72,6 +75,15 @@ const GamePage = () => {
             <Form>
               <div className={styles.fieldsWrapper}>
                 <Descriptions title="Game: " bordered>
+                  <Descriptions.Item label="Rating" span={3}>
+                    <FastField
+                      type="checkbox"
+                      id={ADD_GAME_FORM_FIELDS.rating}
+                      label="Ratingr"
+                      name={ADD_GAME_FORM_FIELDS.rating}
+                      required
+                    />
+                  </Descriptions.Item>
                   <Descriptions.Item label="First killed" span={3}>
                     <FastField
                       component={Autocomplete}
@@ -111,11 +123,6 @@ const GamePage = () => {
                                     name={`${
                                       ADD_GAME_FORM_FIELDS.bestMove}.${index}`}
                                     placeholder={`player ${index + 1}`}
-                                    keys={{
-                                      valueKey: 'value',
-                                      labelKey: 'label',
-                                    }}
-                                    optionList={players}
                                     required
                                   />
                                 </Descriptions.Item>

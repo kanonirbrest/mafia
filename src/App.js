@@ -19,18 +19,22 @@ export const AuthContext = React.createContext();
 const App = () => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
-  useEffect(async () => {
+  useEffect(() => {
+    const getOwnDate = async () => {
+      const club = await clubsApi.own().data;
+      dispatch(setClub(club));
+    };
+
     const token = window.localStorage.getItem('mafiaToken');
     const user = getUserByToken(token);
     if (user && user.role === 'CLUBOWNER') {
-      const club = await clubsApi.own().data;
-      dispatch(setClub(club));
+      getOwnDate();
     }
     if (token) {
-      login({
+      dispatch(login({
         token,
         user,
-      });
+      }));
     }
   }, []);
 

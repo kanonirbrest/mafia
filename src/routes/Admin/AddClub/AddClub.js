@@ -25,7 +25,7 @@ const AddClubPage = ({
   const handleSubmit = async (values) => {
     // eslint-disable-next-line no-param-reassign
     delete values.file; // Todo: remove
-    const response = await clubsApi.create(values);
+    await clubsApi.create(values);
     // TODO check response status
     createNotification(
       `club ${values.name} created`,

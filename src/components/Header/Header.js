@@ -9,7 +9,6 @@ import styles from './Header.module.scss';
 
 const Header = ({ auth, dispatch }) => {
   const history = useHistory();
-
   const onBack = () => {
     history.goBack();
   };
@@ -40,16 +39,9 @@ const Header = ({ auth, dispatch }) => {
 
         {auth.isAuthenticated && (
           <>
-            {/* <div className={styles.info}> */}
-            {/*  Hello, */}
-            {/*  {auth.user.unique_name} */}
-            {/*  ! */}
-            {/*  You are */}
-            {/*  {auth.user.role} */}
-            {/* </div> */}
-            {/* <Button className={styles.logoutButton} onClick={logout}>logout</Button> */}
             <Dropdown overlay={menu}>
               <a
+                href={null}
                 className="ant-dropdown-link"
                 onClick={(e) => e.preventDefault()}
               >

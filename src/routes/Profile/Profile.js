@@ -19,6 +19,7 @@ const ProfilePage = ({ auth }) => {
         </Descriptions.Item>
         <Descriptions.Item label="Role" span={3}>{auth.user.role}</Descriptions.Item>
         <Descriptions.Item label="Id" span={3}>{auth.user.playerId}</Descriptions.Item>
+        <Descriptions.Item label="Club" span={3}>{auth.club}</Descriptions.Item>
       </Descriptions>
     </div>
   );

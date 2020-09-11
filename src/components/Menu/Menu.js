@@ -1,5 +1,5 @@
-/* eslint-disable max-len */
-import React, { useEffect, useState, useRef } from 'react';
+/* eslint-disable max-len,jsx-a11y/anchor-is-valid */
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -63,17 +63,17 @@ const menuItemsData = [
   },
 ];
 const MenuPage = ({ auth: { auth } }) => {
-  let [angle, setAngle] = useState(-90);
+  const [angle, setAngle] = useState(-90);
   const [checkBoxValue, setCheckboxValue] = useState(false);
 
-  const resizeHandler = (e) => {
-    const box = document.getElementById('body');
-
-    const boxCenter = [box.offsetLeft + box.offsetWidth / 2, box.offsetTop + box.offsetHeight / 2];
-    angle = Math.atan2(e.pageX - boxCenter[0], -(e.pageY - boxCenter[1])) * (180 / Math.PI) - 90;
-    setAngle(angle);
-  };
   useEffect(() => {
+    const resizeHandler = (e) => {
+      const box = document.getElementById('body');
+
+      const boxCenter = [box.offsetLeft + box.offsetWidth / 2, box.offsetTop + box.offsetHeight / 2];
+      const angleVal = Math.atan2(e.pageX - boxCenter[0], -(e.pageY - boxCenter[1])) * (180 / Math.PI) - 90;
+      setAngle(angleVal);
+    };
     window.addEventListener('mousemove', resizeHandler);
 
     return () => {
@@ -129,26 +129,29 @@ const MenuPage = ({ auth: { auth } }) => {
                 value={checkBoxValue}
                 onChange={handleChange}
               />
-              <label className={styles.menuOpenButton} htmlFor="menu-open">
+              <label
+                className={styles.menuOpenButton}
+                htmlFor="menu-open"
+              >
                 <img src={GunIcon} alt="React Logo" className={styles.gunIcon} style={{ transform: `rotate(${checkBoxValue ? angle : -90}deg)` }} />
               </label>
 
-              <a href="#" className={cn(styles.menuItem, styles.blue)}>
+              <a href={null} className={cn(styles.menuItem, styles.blue)}>
                 <i className="fa fa-anchor" />
               </a>
-              <a href="#" className={cn(styles.menuItem, styles.green)}>
+              <a href={null} className={cn(styles.menuItem, styles.green)}>
                 <i className="fa fa-coffee" />
               </a>
-              <a href="#" className={cn(styles.menuItem, styles.red)}>
+              <a href={null} className={cn(styles.menuItem, styles.red)}>
                 <i className="fa fa-heart" />
               </a>
-              <a href="#" className={cn(styles.menuItem, styles.purple)}>
+              <a href={null} className={cn(styles.menuItem, styles.purple)}>
                 <i className="fa fa-microphone" />
               </a>
-              <a href="#" className={cn(styles.menuItem, styles.orange)}>
+              <a href={null} className={cn(styles.menuItem, styles.orange)}>
                 <i className="fa fa-star" />
               </a>
-              <a href="#" className={cn(styles.menuItem, styles.orange)}>
+              <a href={null} className={cn(styles.menuItem, styles.orange)}>
                 <i className="fa fa-diamond" />
               </a>
             </nav>

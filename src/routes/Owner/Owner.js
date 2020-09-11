@@ -14,7 +14,8 @@ const mockClub = {
   location: 'Moskovskaya 12',
 };
 
-const OwnerPage = ({ auth }) => {
+const OwnerPage = () => {
+  // eslint-disable-next-line no-unused-vars
   const [clubs, setClubs] = useState([]);
 
   const getClubs = async () => {

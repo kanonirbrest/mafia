@@ -8,6 +8,7 @@ import { COLUMNS } from './constants';
 
 const PlayersTable = ({ players }) => {
   const history = useHistory();
+  console.log(players);
 
   return (
     <div>

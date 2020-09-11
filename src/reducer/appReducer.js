@@ -14,10 +14,12 @@ export const initialState = {
 };
 
 export const reducer = (state, action) => {
+  console.log(action);
+
   switch (action.type) {
     case LOGIN:
-      localStorage.setItem('mafiaUser', JSON.stringify(action.payload.user));
-      localStorage.setItem('mafiaToken', action.payload.token);
+      localStorage.setItem('mafiaUser', JSON.stringify(action.state.user));
+      localStorage.setItem('mafiaToken', action.state.token);
 
       return {
         ...state,

@@ -14,13 +14,14 @@ const PlayerInfo = () => {
 
   const [player, setPlayer] = useState([]);
 
-  const getPlayers = async () => {
-    const response = await usersApi.getAll();
-    setPlayer(response.data.players.find((p) => id === p.id));
-  };
   useEffect(() => {
+    const getPlayers = async () => {
+      const response = await usersApi.getAll();
+      setPlayer(response.data.players.find((p) => id === p.id));
+    };
+
     getPlayers(); /* todo remove request */
-  }, []);
+  }, [id]);
   const getDescription = (item) => (
     <div>
       <div>
@@ -51,9 +52,11 @@ const PlayerInfo = () => {
       >
         <Skeleton avatar active loading={false}>
           <Meta
-            avatar={
-              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-            }
+            avatar={(
+              <Avatar
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              />
+            )}
             title="Player card"
             description={getDescription()}
           />
