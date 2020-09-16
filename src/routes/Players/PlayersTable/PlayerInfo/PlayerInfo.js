@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-
-import { usersApi } from 'api/UsersApi';
 import {
   Skeleton, Card, Avatar,
 } from 'antd';
+
+import { usersApi } from 'api/UsersApi';
+import { clubsApi } from 'api/ClubsApi';
 
 const { Meta } = Card;
 
@@ -13,16 +14,22 @@ const PlayerInfo = () => {
   const id = location.pathname.split('/')[2];
 
   const [player, setPlayer] = useState([]);
-
+  const [clubs, setClubs] = useState([]);
   useEffect(() => {
+    const getСlubs = async () => {
+      const response = await clubsApi
+        .users(window.location.pathname.split('/')[2]);
+      setClubs(response.data.clubs);
+    };
     const getPlayers = async () => {
       const response = await usersApi.getAll();
       setPlayer(response.data.players.find((p) => id === p.id));
     };
 
     getPlayers(); /* todo remove request */
+    getСlubs();
   }, [id]);
-  const getDescription = (item) => (
+  const getDescription = () => (
     <div>
       <div>
         name:
@@ -38,6 +45,11 @@ const PlayerInfo = () => {
         city:
         {' '}
         {player.city}
+      </div>
+      <div>
+        clubs:
+        {' '}
+        {clubs.join(', ')}
       </div>
       <div>
         inst: www.instagram.com

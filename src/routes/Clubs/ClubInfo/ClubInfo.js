@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Carousel } from 'antd';
 
 import PlayersTable from '../../Players/PlayersTable';
 
 import styles from './ClubInfo.module.scss';
+import { clubsApi } from '../../../api/ClubsApi';
 
 const contentStyle = {
   height: '160px',
@@ -14,7 +15,16 @@ const contentStyle = {
 };
 
 const ClubInfo = () => {
-  console.log('club info');
+  console.log('props.match', window.location.pathname.split('/')[2]);
+  const getPlayers = async () => {
+    const response = await clubsApi
+      .users(window.location.pathname.split('/')[2]);
+    console.log(response, 'resp');
+  };
+
+  useEffect(() => {
+    getPlayers();
+  }, []);
 
   return (
     <div className={styles.wrapper}>

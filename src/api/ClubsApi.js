@@ -11,5 +11,8 @@ export const clubsApi = {
   own(data) {
     return http.get(`${BASE_URL}/Clubs/own`, data);
   },
+  users(id) {
+    return http.get(`${BASE_URL}/Clubs/user/${id}​`);
+  },
 };
 export default clubsApi;
