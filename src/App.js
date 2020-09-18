@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router, Switch,
 } from 'react-router-dom';
-
-import MainRoute from './routes';
-
-import './App.scss';
 import 'antd/dist/antd.css';
+
+import clubsApi from 'api/ClubsApi';
+import MainRoute from './routes';
+import './App.scss';
 import LoginPage from './routes/Login';
 import { getUserByToken } from './utils/auth';
-import { clubsApi } from './api/ClubsApi';
 import {
   initialState, login, reducer, setClub,
 } from './reducer/appReducer';

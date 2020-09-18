@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Col, Row } from 'antd';
 import { useHistory } from 'react-router-dom';
 
-import { clubsApi } from 'api/ClubsApi';
+import clubsApi from 'api/ClubsApi';
 
 import styles from './Clubs.module.scss';
 

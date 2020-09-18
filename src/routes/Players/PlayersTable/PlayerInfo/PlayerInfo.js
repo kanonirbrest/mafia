@@ -5,7 +5,7 @@ import {
 } from 'antd';
 
 import { usersApi } from 'api/UsersApi';
-import { clubsApi } from 'api/ClubsApi';
+import clubsApi from 'api/ClubsApi';
 
 const { Meta } = Card;
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { clubsApi } from 'api/ClubsApi';
+import clubsApi from 'api/ClubsApi';
 import ClubInfo from './ClubInfo';
 import AddPlayer from './AddPlayer';
 import { usersApi } from '../../api/UsersApi';

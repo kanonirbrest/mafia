@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
+import clubsApi from 'api/ClubsApi';
 import styles from './Admin.module.scss';
 import AddClubPage from './AddClub';
 import AddClubOwnerPage from './AddClubOnwer/AddClubOnwer';
-import { clubsApi } from '../../api/ClubsApi';
 
 const AdminPage = () => {
   const [clubs, setClubs] = useState([]);

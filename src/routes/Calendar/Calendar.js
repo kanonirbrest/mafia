@@ -54,6 +54,8 @@ const CalendarPage = () => {
     if (value.month() === 8) {
       return 1394;
     }
+
+    return 0;
   };
 
   const monthCellRender = (value) => {
@@ -69,7 +71,11 @@ const CalendarPage = () => {
 
   return (
     <div className={styles.wrapper}>
-      <Calendar fullscreen={false} dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
+      <Calendar
+        fullscreen={false}
+        dateCellRender={dateCellRender}
+        monthCellRender={monthCellRender}
+      />
     </div>
   );
 };

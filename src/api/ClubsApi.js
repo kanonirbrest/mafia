@@ -1,7 +1,7 @@
-import { BASE_URL } from '../utils/constants/ApiConstants';
+import { BASE_URL } from 'utils/constants/ApiConstants';
 import http from './httpService';
 
-export const clubsApi = {
+const clubsApi = {
   getAll() {
     return http.get(`${BASE_URL}/Clubs`);
   },
@@ -12,7 +12,9 @@ export const clubsApi = {
     return http.get(`${BASE_URL}/Clubs/own`, data);
   },
   users(id) {
-    return http.get(`${BASE_URL}/Clubs/user/${id}​`);
+    return http
+      .get(`${BASE_URL}/Clubs/user/${id}`);
   },
 };
+
 export default clubsApi;

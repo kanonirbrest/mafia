@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Carousel } from 'antd';
 
+import clubsApi from 'api/ClubsApi';
 import PlayersTable from '../../Players/PlayersTable';
 
 import styles from './ClubInfo.module.scss';
-import { clubsApi } from '../../../api/ClubsApi';
 
 const contentStyle = {
   height: '160px',

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import cn from 'classnames';
 
 import {
   Button, Menu, Dropdown, Badge,
@@ -40,16 +41,16 @@ const Header = ({ auth, dispatch }) => {
         {auth.isAuthenticated && (
           <>
             <Dropdown overlay={menu}>
-              <a
-                href={null}
-                className="ant-dropdown-link"
+              <button
+                type="button"
+                className={cn(styles.dropdown, 'ant-dropdown-link')}
                 onClick={(e) => e.preventDefault()}
               >
                 <Badge status="success" text="" />
                 Hello,
                 {auth.user.unique_name}
                 <DownOutlined />
-              </a>
+              </button>
             </Dropdown>
           </>
         )}

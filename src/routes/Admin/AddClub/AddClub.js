@@ -3,7 +3,7 @@ import React from 'react';
 import { FastField, Form, Formik } from 'formik';
 import InputField from 'components/FormControls/InputField';
 import { Button, Descriptions } from 'antd';
-import { clubsApi } from 'api/ClubsApi';
+import clubsApi from 'api/ClubsApi';
 import { createNotification } from 'utils/notificationUtils';
 import styles from './AddClub.module.scss';
 

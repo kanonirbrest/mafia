@@ -129,6 +129,7 @@ const MenuPage = ({ auth: { auth } }) => {
                 value={checkBoxValue}
                 onChange={handleChange}
               />
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label
                 className={styles.menuOpenButton}
                 htmlFor="menu-open"

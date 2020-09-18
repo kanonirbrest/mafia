@@ -9,9 +9,9 @@ import { Button } from 'antd';
 // import { authContext } from 'contexts/AuthContext';
 // import { ROUTES } from 'utils/constants';
 import { authApi } from 'api/authApi';
+import clubsApi from 'api/ClubsApi';
 import styles from './Login.module.scss';
 import { login, setClub } from '../../reducer/appReducer';
-import { clubsApi } from '../../api/ClubsApi';
 
 export const LOGIN_FORM_FIELDS = {
   userName: 'userName',
