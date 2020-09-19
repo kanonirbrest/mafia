@@ -6,7 +6,6 @@ const CheckAuth = ({ auth }) => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(auth, '===');
     if (!(auth && auth.id) && history.location.pathname !== ROUTES.login) {
       history.push(ROUTES.login);
     }

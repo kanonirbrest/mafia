@@ -15,11 +15,11 @@ const contentStyle = {
 };
 
 const ClubInfo = () => {
-  console.log('props.match', window.location.pathname.split('/')[2]);
   const getPlayers = async () => {
     const response = await clubsApi
       .users(window.location.pathname.split('/')[2]);
-    console.log(response, 'resp');
+    // eslint-disable-next-line no-console
+    console.log('players', response);
   };
 
   useEffect(() => {

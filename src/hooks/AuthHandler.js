@@ -4,7 +4,6 @@ import { DEFAULT_USER_AUTH } from '../utils/auth';
 const useAuthHandler = (initialState) => {
   const [auth, setAuth] = React.useState(initialState);
   const setAuthStatus = (userAuth) => {
-    console.log('set data', userAuth);
     window.localStorage.setItem('UserAuth', JSON.stringify(userAuth));
     setAuth(userAuth);
   };

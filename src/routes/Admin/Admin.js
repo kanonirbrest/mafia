@@ -15,11 +15,8 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    console.log('useeff');
     getClubs();
   }, []);
-
-  console.log(clubs, 'clubs');
 
   return (
     <div className={styles.addClubWrapper}>

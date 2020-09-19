@@ -117,6 +117,7 @@ const MenuPage = ({ auth: { auth } }) => {
   return (
     <div className={styles.menuWrapper}>
       {
+        // eslint-disable-next-line no-constant-condition
         true
           ? menuItems : (
             <nav className={styles.menu}>

@@ -8,14 +8,12 @@ import { COLUMNS } from './constants';
 
 const PlayersTable = ({ players }) => {
   const history = useHistory();
-  console.log(players);
 
   return (
     <div>
       <Table
         onRow={(record, rowIndex) => ({
           onClick: () => {
-            console.log(players[rowIndex]);
             history.push(`/players/${players[rowIndex].id}`);
           },
         })}

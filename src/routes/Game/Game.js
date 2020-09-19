@@ -11,6 +11,7 @@ import { GAME_ROLES, WINNER } from 'utils/constants';
 import { validateGameForm } from 'utils/validationUtils';
 import { usersApi } from 'api/UsersApi';
 import InputField from 'components/FormControls/InputField';
+import gamesApi from 'api/gamesApi';
 
 import styles from './Game.module.scss';
 
@@ -32,30 +33,47 @@ export const ADD_GAME_FORM_FIELDS = {
   playerRoles: 'playerRoles',
 };
 
-const handleSubmit = (values) => {
-  const bestMove = values.bestMove.map((index) => values.playerRoles[index - 1].playerId);
-  const firstKilled = values.playerRoles[values.firstKilledId - 1].playerId;
-  console.log(firstKilled, 'values', bestMove);
-};
-
 const initialValues = {
   firstKilledId: '',
   bestMove: ['', '', ''],
-  gameResult: '',
+  gameResult: WINNER.RedWin,
   playerRoles: Array(10).fill({
     playerId: '',
-    gameRole: '',
+    gameRole: GAME_ROLES.Civilian,
   }),
 };
 
 const GamePage = () => {
   const [players, setPlayers] = useState([]);
+  const getUserId = (nickname) => players
+    .find((player) => player.label === nickname)?.id;
 
+  const handleSubmit = async (values) => {
+    const bestMove = values.bestMove.map(
+      (index) => getUserId(values.playerRoles[index - 1].playerId),
+    );
+
+    const data = {
+      bestMove,
+      firstKilled: getUserId(values.firstKilledId),
+      gameResult: values.gameResult,
+      playerRoles: values.playerRoles.map((playerRole) => ({
+        playerId: getUserId(playerRole.playerId),
+        gameRole: playerRole.gameRole,
+      })),
+      rating: values.rating,
+    };
+
+    const response = await gamesApi.create(data);
+    console.log(response, 'response');
+  };
   const getPlayers = async () => {
     const response = await usersApi.getAll();
+
     setPlayers(response.data.players.map((p) => ({
       value: p.nickname,
       label: p.nickname,
+      id: p.id,
     })) || []);
   };
   useEffect(() => {
@@ -81,7 +99,6 @@ const GamePage = () => {
                       id={ADD_GAME_FORM_FIELDS.rating}
                       label="Ratingr"
                       name={ADD_GAME_FORM_FIELDS.rating}
-                      required
                     />
                   </Descriptions.Item>
                   <Descriptions.Item label="First killed" span={3}>

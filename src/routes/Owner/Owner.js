@@ -43,9 +43,7 @@ const OwnerPage = () => {
             'This is the content of the notification.',
           );
         });
-      }, (err) => {
-        console.log('err', { err });
-      });
+      }, () => {});
   };
 
   return (

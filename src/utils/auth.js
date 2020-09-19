@@ -5,8 +5,6 @@ export const DEFAULT_USER_AUTH = { id: 0, email: '' };
 export const getStoredUserAuth = () => {
   const auth = window.localStorage.getItem('UserAuth');
   if (auth) {
-    console.log(JSON.parse(auth));
-
     return JSON.parse(auth);
   }
 
@@ -17,9 +15,7 @@ export const getUserByToken = (token) => {
   const accessToken = token || window.localStorage.getItem('UserAuth');
 
   if (accessToken) {
-    const decoded = jwt.decode(accessToken);
-
-    return decoded;
+    return jwt.decode(accessToken);
   }
 
   return null;

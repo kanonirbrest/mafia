@@ -34,12 +34,11 @@ const AddClubOwnerPage = ({ title, defaultValues, clubs = [] }) => {
   const [clubIdOptions, setClubIdOptions] = useState([]);
 
   const handleSubmit = async (values) => {
-    const response = await usersApi.createClubOwner(values);
+    await usersApi.createClubOwner(values);
     createNotification(
       `${values.nickname} created as club owner`,
       'This is the content of the notification.',
     );
-    console.log(response, 'response');
   };
   const validateGameForm = () => {};
 

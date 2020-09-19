@@ -6,9 +6,8 @@ export const validateGameForm = ({
   playerRoles,
 }) => {
   const errors = {
-    playerRoles: [],
   };
-
+  const playerRolesErrors = [];
   if (!firstKilledId) {
     errors.firstKilledId = 'please add first killed id';
   }
@@ -23,12 +22,12 @@ export const validateGameForm = ({
       countOfDons += 1;
     }
     if (countOfMafs > 2) {
-      errors.playerRoles[id] = {
+      playerRolesErrors[id] = {
         gameRole: 'Should be not more than 2 Mafs',
       };
     }
     if (countOfDons > 1) {
-      errors.playerRoles[id] = {
+      playerRolesErrors[id] = {
         gameRole: 'Should be only 1 Don',
       };
     }
@@ -39,6 +38,10 @@ export const validateGameForm = ({
   }
   if (countOfDons !== 1) {
     errors.count = 'Wrong count of Dons';
+  }
+
+  if (playerRolesErrors.length > 0) {
+    errors[playerRolesErrors] = playerRolesErrors;
   }
 
   return errors;

@@ -37,7 +37,7 @@ const renderField = (
       <Select
         name={field.name}
         onChange={onChange}
-        defaultValue={optionList.length > 0 ? optionList[0].value : null}
+        value={field.value}
         className={cn(styles.select, cssClasses.select)}
         style={{ width: '100%' }}
       >
