@@ -15,6 +15,7 @@ const menuItemsData = [
     url: 'https://novosib-room.ru/uploads/novosib/2014/08/mafiya-kartinki-smeshnye-kartinki-fotoprikoly_404033222.jpg',
     title: 'Create Game',
     route: ROUTES.game,
+    roles: ['CLUBOWNER'],
   },
   {
     name: '2',

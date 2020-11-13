@@ -19,8 +19,10 @@ export const LOGIN_FORM_FIELDS = {
 };
 
 const initialValues = {
-  userName: 'admin',
-  password: 'mfadmin1234',
+  userName: 'adminadmin',
+  password: 'adminadmin',
+  // userName: 'admin',
+  // password: 'mfadmin1234',
 };
 
 const LoginPage = ({ dispatch }) => {

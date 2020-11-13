@@ -16,7 +16,6 @@ const AddPlayer = ({ club, onAddPlayers }) => (
       onSubmit={onAddPlayers}
       render={({ values }) => (
         <Form>
-
           <FieldArray
             name="players"
             render={(arrayHelpers) => (
@@ -59,7 +58,14 @@ const AddPlayer = ({ club, onAddPlayers }) => (
                   >
                     Add a player
                   </Button>
-                  {values.players.length > 0 && <Button type="submit">Submit</Button>}
+                  {values.players.length > 0 && (
+                  <Button
+                    type="submit"
+                    htmlType="submit"
+                  >
+                    Submit
+                  </Button>
+                  )}
                 </div>
               </div>
             )}

@@ -7,23 +7,20 @@ import { Button, Descriptions } from 'antd';
 
 import SelectField from 'components/FormControls/SelectField';
 import Autocomplete from 'components/FormControls/Autocomplete';
-import { GAME_ROLES, WINNER } from 'utils/constants';
 import { validateGameForm } from 'utils/validationUtils';
 import { usersApi } from 'api/UsersApi';
 import InputField from 'components/FormControls/InputField';
 import gamesApi from 'api/gamesApi';
+import { createNotification } from 'utils/notificationUtils';
+import {
+  gameResultOptions, gameRoleOptions, getInitialGameValues, getPayloadFromValues,
+}
+  from 'utils/gameUtils';
 
 import styles from './Game.module.scss';
 
-const roleOptions = Object.keys(GAME_ROLES).map((role) => ({
-  label: role,
-  value: GAME_ROLES[role],
-}));
-
-const resultOptions = Object.keys(WINNER).map((role) => ({
-  label: role,
-  value: WINNER[role],
-}));
+const MAX_SLOT_NUMBER = 10;
+const MIN_SLOT_NUMBER = 1;
 
 export const ADD_GAME_FORM_FIELDS = {
   rating: 'rating',
@@ -33,50 +30,30 @@ export const ADD_GAME_FORM_FIELDS = {
   playerRoles: 'playerRoles',
 };
 
-const initialValues = {
-  firstKilledId: '',
-  bestMove: ['', '', ''],
-  gameResult: WINNER.RedWin,
-  playerRoles: Array(10).fill({
-    playerId: '',
-    gameRole: GAME_ROLES.Civilian,
-  }),
-};
-
 const GamePage = () => {
   const [players, setPlayers] = useState([]);
-  const getUserId = (nickname) => players
-    .find((player) => player.label === nickname)?.id;
 
   const handleSubmit = async (values) => {
-    const bestMove = values.bestMove.map(
-      (index) => getUserId(values.playerRoles[index - 1].playerId),
-    );
+    const data = getPayloadFromValues(values);
 
-    const data = {
-      bestMove,
-      firstKilled: getUserId(values.firstKilledId),
-      gameResult: values.gameResult,
-      playerRoles: values.playerRoles.map((playerRole) => ({
-        playerId: getUserId(playerRole.playerId),
-        gameRole: playerRole.gameRole,
-      })),
-      rating: values.rating,
+    await gamesApi.create(data);
+    createNotification(
+      'Game added',
+      '',
+    );
+  };
+
+  useEffect(() => {
+    const getPlayers = async () => {
+      const response = await usersApi.getAll();
+
+      setPlayers(response.data.players.map((p) => ({
+        value: p.nickname,
+        label: p.nickname,
+        id: p.id,
+      })) || []);
     };
 
-    const response = await gamesApi.create(data);
-    console.log(response, 'response');
-  };
-  const getPlayers = async () => {
-    const response = await usersApi.getAll();
-
-    setPlayers(response.data.players.map((p) => ({
-      value: p.nickname,
-      label: p.nickname,
-      id: p.id,
-    })) || []);
-  };
-  useEffect(() => {
     getPlayers();
   }, []);
 
@@ -85,7 +62,7 @@ const GamePage = () => {
       {players.length > 0 && (
       <div>
         <Formik
-          initialValues={initialValues}
+          initialValues={getInitialGameValues(players)}
           onSubmit={handleSubmit}
           validate={validateGameForm}
         >
@@ -103,17 +80,14 @@ const GamePage = () => {
                   </Descriptions.Item>
                   <Descriptions.Item label="First killed" span={3}>
                     <FastField
-                      component={Autocomplete}
+                      component={InputField}
                       id={ADD_GAME_FORM_FIELDS.firstKilledId}
                       placeholder="first Killed Player"
-                      // label="first Killed Player"
                       name={ADD_GAME_FORM_FIELDS.firstKilledId}
                       cssClasses={{ container: styles.field }}
-                      optionList={players}
-                      keys={{
-                        valueKey: 'value',
-                        labelKey: 'label',
-                      }}
+                      type="number"
+                      min={MIN_SLOT_NUMBER}
+                      max={MAX_SLOT_NUMBER}
                       required
                     />
                   </Descriptions.Item>
@@ -140,6 +114,8 @@ const GamePage = () => {
                                     name={`${
                                       ADD_GAME_FORM_FIELDS.bestMove}.${index}`}
                                     placeholder={`player ${index + 1}`}
+                                    min={MIN_SLOT_NUMBER}
+                                    max={MAX_SLOT_NUMBER}
                                     required
                                   />
                                 </Descriptions.Item>
@@ -166,7 +142,7 @@ const GamePage = () => {
                         labelKey: 'label',
                       }}
                       placeholder="Game result"
-                      optionList={resultOptions}
+                      optionList={gameResultOptions}
                       required
                     />
                   </Descriptions.Item>
@@ -211,7 +187,7 @@ const GamePage = () => {
                                 valueKey: 'value',
                                 labelKey: 'label',
                               }}
-                              optionList={roleOptions}
+                              optionList={gameRoleOptions}
                               type="text"
                               required
                             />

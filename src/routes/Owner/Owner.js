@@ -35,6 +35,7 @@ const OwnerPage = () => {
       club: mockClub.name,
       city: mockClub.city,
     }));
+    console.log(players);
     Promise.all(players)
       .then(() => {
         values.players.forEach((player) => {
