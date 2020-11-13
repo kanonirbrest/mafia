@@ -36,7 +36,7 @@ export const DATA_SOURCE = [
   },
 ];
 
-export const COLUMNS = [
+export const columns = [
   {
     title: 'Nickname',
     dataIndex: 'nickname',

@@ -1,24 +1,26 @@
 import React from 'react';
 import { Table } from 'antd';
-
 import { useHistory } from 'react-router-dom';
-import { COLUMNS } from './constants';
+
+import { columns } from './constants';
 
 // import styles from './PlayersTable.module.scss';
 
 const PlayersTable = ({ players }) => {
   const history = useHistory();
+  const onRowCLick = (rowIndex) => {
+    history.push(`/players/${players[rowIndex].id}`);
+  };
 
   return (
     <div>
       <Table
         onRow={(record, rowIndex) => ({
-          onClick: () => {
-            history.push(`/players/${players[rowIndex].id}`);
-          },
+          onClick: () => onRowCLick(rowIndex),
         })}
         dataSource={players}
-        columns={COLUMNS}
+        columns={columns}
+        rowKey="id"
       />
     </div>
   );
