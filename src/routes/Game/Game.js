@@ -33,14 +33,15 @@ export const ADD_GAME_FORM_FIELDS = {
 const GamePage = () => {
   const [players, setPlayers] = useState([]);
 
-  const handleSubmit = async (values) => {
-    const data = getPayloadFromValues(values);
+  const handleSubmit = async (values, { resetForm }) => {
+    const data = getPayloadFromValues(values, players);
 
     await gamesApi.create(data);
     createNotification(
       'Game added',
       '',
     );
+    resetForm();
   };
 
   useEffect(() => {

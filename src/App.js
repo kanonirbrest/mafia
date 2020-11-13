@@ -26,6 +26,7 @@ const App = () => {
 
     const token = window.localStorage.getItem('mafiaToken');
     const user = getUserByToken(token);
+
     if (user && user.role === 'CLUBOWNER') {
       getOwnDate();
     }

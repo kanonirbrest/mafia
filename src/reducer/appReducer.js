@@ -34,7 +34,6 @@ export const reducer = (state, action) => {
         user: null,
       };
     case SET_CLUB:
-      localStorage.clear();
 
       return {
         ...state,

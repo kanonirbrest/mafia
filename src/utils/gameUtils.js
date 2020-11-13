@@ -51,20 +51,21 @@ export const getBestMovePoint = (move, players) => {
   return BEST_MOVE_POINTS[countOfMafs];
 };
 
-export const getPayloadFromValues = (values) => {
+export const getPayloadFromValues = (values, players) => {
   const bestMovePlayers = values.bestMove.map(
     (index) => values.playerRoles[index - 1],
   );
+  const firstKilledPlayerId = values.playerRoles[values.firstKilledId - 1].playerId;
 
   return {
     dateTime: new Date(),
     gameResult: values.gameResult,
-    playerRoles: values.playerRoles.map((playerRole) => ({
-      playerId: getUserIdByNickname(playerRole.playerId),
-      gameRole: playerRole.gameRole,
+    playerRoles: values.playerRoles.map((player) => ({
+      playerId: getUserIdByNickname(player.playerId, players),
+      gameRole: player.gameRole,
     })),
     extraPoints: [{
-      playerId: values.playerRoles[values.firstKilledId - 1].playerId,
+      playerId: getUserIdByNickname(firstKilledPlayerId, players),
       value: getBestMovePoint(bestMovePlayers, values.playerRoles),
       type: 0, // what?
     }],
